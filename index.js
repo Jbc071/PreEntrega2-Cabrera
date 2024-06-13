@@ -1,58 +1,38 @@
-/* Funcion para generar un numero aleatorio entre 1 y 10*/
-
-
-function NumeroAleatorio(max) {
-    return Math.floor(Math.random() * max) + 1;
+function Turno(auto, fecha, hora) {
+    this.auto = auto;
+    this.fecha = fecha;
+    this.hora = hora;
 }
 
-/* Funcion principal*/
+var turnos = [];
 
+function agendarTurno() {
+    var auto = prompt("Ingrese el auto:");
+    var fecha = prompt("Ingrese la fecha del turno (formato: DD/MM/AAAA):");
+    var hora = prompt("Ingrese la hora del turno (formato: HH:MM):");
 
-function simuladorAdivi() {
-const maxIntentos = 3;
-const numeroSecreto = NumeroAleatorio(10);
-let intentos = 0;
-let adivinado = false;
+    var partesFecha = fecha.split("/");
+    var fechaTurno = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
 
-alert("Bienvenido al juego de adivinanzas");
-
-while (intentos < maxIntentos && !adivinado) {
-const input = prompt("Intenta adivinar el número:");
-
-/* Cuando en el prompt el jugador selecciona cancelar*/
-
-if (input === null) {
-alert("Muchas Gracias por jugar, reinicia y volve a hacerlo!.");
-return; 
+    var nuevoTurno = new Turno(auto, fechaTurno, hora);
+    turnos.push(nuevoTurno);
 }
 
-const intento = parseInt(input);
-if (!isNaN(intento)) {
-if (intento > 10) {
-alert("Valor incorrecto. Elije un número del 1 al 10!.");
+function mostrarTurnos() {
+    var container = document.getElementById('turnos-container');
+    container.innerHTML = '';
+
+    turnos.forEach(function(turno, indice) {
+        var turnoHtml = document.createElement('p');
+        turnoHtml.textContent = "Turno " + (indice + 1) + " - Auto: " + turno.auto + ", Fecha: " + turno.fecha.toLocaleDateString() + ", Hora: " + turno.hora;
+        container.appendChild(turnoHtml);
+    });
 }
 
-else if (intento === numeroSecreto) {
-alert("¡Felicidades! ¡Has adivinado el número!");
-adivinado = true;
-}
-else {
-intentos++;
-alert(`Incorrecto. Te quedan ${maxIntentos - intentos} intentos.`);
-}
-}
-else {
-alert("Por favor, ingresa un número válido.");
-}
+document.getElementById('agregar-turno-btn').addEventListener('click', function() {
+    agendarTurno();
+});
 
-}
-
-if (!adivinado) {
-alert(`¡Lo siento! El número secreto era ${numeroSecreto}.`);
-
-}
-}
-
-/* Ejecuta el simulador */
-
-simuladorAdivi();
+document.getElementById('mostrar-turnos-btn').addEventListener('click', function() {
+    mostrarTurnos();
+});
