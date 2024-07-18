@@ -6,7 +6,6 @@ function Turno(auto, fecha, hora) {
 }
 
 // Función para cargar turnos desde el LocalStorage
-
 function cargarTurnos() {
     const turnosGuardados = localStorage.getItem('turnos');
     if (turnosGuardados) {
@@ -16,7 +15,6 @@ function cargarTurnos() {
 }
 
 // Función para guardar turnos en el LocalStorage
-
 function guardarTurnos(turnos) {
     localStorage.setItem('turnos', JSON.stringify(turnos));
 }
@@ -29,15 +27,16 @@ function agendarTurno() {
     const auto = prompt("Ingrese el modelo del auto:");
     const fecha = prompt("Ingrese la fecha del turno (formato: DD/MM/AAAA):");
     const hora = prompt("Ingrese la hora del turno (formato: HH:MM):");
-// Convertir la fecha ingresada a un objeto Date
+
+    // Convertir la fecha ingresada a un objeto Date
     const partesFecha = fecha.split("/");
     const fechaTurno = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
 
-// Crear un nuevo turno y agregarlo al array de turnos
+    // Crear un nuevo turno y agregarlo al array de turnos
     const nuevoTurno = new Turno(auto, fechaTurno, hora);
     turnos.push(nuevoTurno);
 
-// Guardar los turnos actualizados en el LocalStorage
+    // Guardar los turnos actualizados en el LocalStorage
     guardarTurnos(turnos);
 }
 

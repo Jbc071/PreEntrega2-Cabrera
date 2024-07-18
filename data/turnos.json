@@ -1,0 +1,17 @@
+[
+    {
+        "auto": "Toyota Corolla",
+        "fecha": "2024-07-01T00:00:00Z",
+        "hora": "10:00"
+    },
+    {
+        "auto": "Honda Civic",
+        "fecha": "2024-07-02T00:00:00Z",
+        "hora": "11:00"
+    },
+    {
+        "auto": "Ford Fiesta",
+        "fecha": "2024-07-03T00:00:00Z",
+        "hora": "12:00"
+    }
+]
