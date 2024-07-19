@@ -64,3 +64,33 @@ document.getElementById('mostrar-turnos-btn').addEventListener('click', function
 
 // Mostrar turnos al cargar la página
 mostrarTurnos();
+
+// Función para obtener datos desde JSONPlaceholder
+async function obtenerDatos() {
+    try {
+        const respuesta = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const datos = await respuesta.json();
+        return datos;
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+    }
+}
+
+// Función para mostrar los datos obtenidos en el contenedor HTML
+async function mostrarDatos() {
+    const datos = await obtenerDatos();
+    const container = document.getElementById('datos-container');
+    container.innerHTML = '';
+
+    datos.forEach((dato, indice) => {
+        const datoHtml = document.createElement('p');
+        datoHtml.textContent = `ID: ${dato.id} - Título: ${dato.title}`;
+        container.appendChild(datoHtml);
+    });
+}
+
+// Evento Listener para el botón de mostrar datos
+document.getElementById('mostrar-datos-btn').addEventListener('click', function() {
+    mostrarDatos();
+});
+
