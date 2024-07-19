@@ -52,6 +52,31 @@ function mostrarTurnos() {
     });
 }
 
+// Función para obtener datos del clima
+async function obtenerClima() {
+    const apiKey = 'TU_API_KEY_DE_OPENWEATHERMAP';
+    const ciudad = 'Salta';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        mostrarClima(data);
+    } catch (error) {
+        console.error("Error al obtener los datos del clima:", error);
+    }
+}
+
+// Función para mostrar los datos del clima
+function mostrarClima(data) {
+    const container = document.getElementById('weather-container');
+    container.innerHTML = `
+        <h2>Clima en ${data.name}</h2>
+        <p>Temperatura: ${data.main.temp} °C</p>
+        <p>Descripción: ${data.weather[0].description}</p>
+    `;
+}
+
 // Evento Listeners para los botones
 document.getElementById('agregar-turno-btn').addEventListener('click', function() {
     agendarTurno();
@@ -65,32 +90,6 @@ document.getElementById('mostrar-turnos-btn').addEventListener('click', function
 // Mostrar turnos al cargar la página
 mostrarTurnos();
 
-// Función para obtener datos desde JSONPlaceholder
-async function obtenerDatos() {
-    try {
-        const respuesta = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const datos = await respuesta.json();
-        return datos;
-    } catch (error) {
-        console.error("Error al obtener datos:", error);
-    }
-}
-
-// Función para mostrar los datos obtenidos en el contenedor HTML
-async function mostrarDatos() {
-    const datos = await obtenerDatos();
-    const container = document.getElementById('datos-container');
-    container.innerHTML = '';
-
-    datos.forEach((dato, indice) => {
-        const datoHtml = document.createElement('p');
-        datoHtml.textContent = `ID: ${dato.id} - Título: ${dato.title}`;
-        container.appendChild(datoHtml);
-    });
-}
-
-// Evento Listener para el botón de mostrar datos
-document.getElementById('mostrar-datos-btn').addEventListener('click', function() {
-    mostrarDatos();
-});
+// Obtener y mostrar el clima al cargar la página
+obtenerClima();
 

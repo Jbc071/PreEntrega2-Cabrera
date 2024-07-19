@@ -6,7 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url(../img/composicion-moderna-mecanico-automoviles.jpg);
+    background-image: url(./img/composicion-moderna-mecanico-automoviles.jpg);
     background-size: cover;
     background-position: center;
     color: white;
@@ -37,7 +37,7 @@ button:hover {
     background-color: #70c3e4;
 }
 
-#turnos-container {
+#turnos-container, #weather-container {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
